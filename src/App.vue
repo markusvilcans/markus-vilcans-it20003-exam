@@ -1,22 +1,21 @@
+<script>
+import { auth } from '/src/stores/auth';
+export default {
+  data(){
+    return {
+        auth
+    }
+  }
+}
+</script>
+
 <template>
-    <Header></Header>
+    <Header v-show="auth.is_authenticated" ></Header>
     <div id="section-body">
-        <nav id="nav-main" class="wrapper-navigation">
-            <ol>
-                <li>
-                    <a href="/">SONGS</a>
-                </li>
-                <li>
-                    <a href="/albums">ALBUMS</a>
-                </li>
-                <li>
-                    <a href="/about">ABOUT</a>
-                </li>
-            </ol>
-        </nav>
+        <NavigationComponent v-show="auth.is_authenticated"></NavigationComponent>
         <router-view class="section-router"></router-view>
     </div>
-    <div id="section-player">
+    <div v-show="auth.is_authenticated" id="section-player">
         <AudioPlayer />
     </div>
 </template>
